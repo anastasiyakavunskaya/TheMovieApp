@@ -21,7 +21,9 @@ class FilmListFragment: BaseListFragment(), FilmsContract.View{
     @Inject
     lateinit var presenter: FilmsPresenter
 
+    var page = 1
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         return inflater.inflate(com.example.topmovies.R.layout.fragment_film_list, container, false)
     }
 
@@ -29,7 +31,7 @@ class FilmListFragment: BaseListFragment(), FilmsContract.View{
         super.onViewCreated(view, savedInstanceState)
         App.appComponent.inject(this)
         presenter.attach(this)
-        var page = 1
+
         presenter.makeList(page)
 
         val onScrollListener = object : RecyclerView.OnScrollListener() {
@@ -45,8 +47,6 @@ class FilmListFragment: BaseListFragment(), FilmsContract.View{
         }
        getRecycler().addOnScrollListener(onScrollListener)
     }
-
-
 
     override fun createAdapterInstance(): BaseAdapter<*> {
         return FilmsAdapter()

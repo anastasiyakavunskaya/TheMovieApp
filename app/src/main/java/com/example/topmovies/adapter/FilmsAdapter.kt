@@ -41,8 +41,13 @@ class FilmsAdapter : BaseAdapter<FilmsAdapter.FilmsViewHolder>() {
                             reminder.set(SECOND, 0)
                             reminder.set(MINUTE, i1)
                             reminder.set(HOUR_OF_DAY, i)
-                            setNotification(reminder, context, title, id)
-                            Toast.makeText(context, "Alarm has been set", Toast.LENGTH_SHORT).show()
+                            if(reminder.timeInMillis < getInstance().timeInMillis) Toast.makeText(context, "Error at setting the notification, check the time", Toast.LENGTH_SHORT).show()
+                            else
+                            {
+                                setNotification(reminder, context, title, id)
+                                Toast.makeText(context, "Notification has been set", Toast.LENGTH_SHORT).show()
+                            }
+
                         },
                         getInstance().get(HOUR_OF_DAY),
                         getInstance().get(MINUTE),
